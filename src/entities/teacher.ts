@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
-@Entity('teaches', { schema: 'train' }) // Cambiado de 'ventas' a 'educacion'
+@Entity('teaches', { schema: 'train' }) 
 export class TeacherEntity {
 
     @PrimaryGeneratedColumn('increment')
