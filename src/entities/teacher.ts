@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToMany, JoinTable } from 'typeorm';
+import { StudentEntity } from './students';
 
-@Entity('teaches', { schema: 'train' }) 
+@Entity('teacher', { schema: 'train' }) 
 export class TeacherEntity {
 
     @PrimaryGeneratedColumn('increment')
@@ -27,18 +28,52 @@ export class TeacherEntity {
     })
     deleteAt: Date;
 
-    @Column()
-    name: string;
+    @ManyToMany(() => StudentEntity, student => student.teachers)
+    @JoinTable()
+    students: StudentEntity[];
 
-    @Column()
-    lastname: string;
-
-    @Column()
-    title: string;
-
-    @Column()
-    assignedCourses: number;
+    @Column('varchar', {
+        name: 'name',
+        nullable: false,
+        comment: 'teacher name',
+      })
+      name: string; 
     
-    @Column()
-    matter: string;
-}
+      @Column('integer', {
+        name: 'phone_number',
+        nullable: false,
+        comment: 'phone number',
+      })
+      phoneNumber: number;
+    
+      @Column('varchar', {
+        name: 'email',
+        nullable: true,
+        comment: 'email',
+      })
+      email: string;
+    
+      @Column('varchar', {
+        name: 'availability',
+        nullable: true,
+        comment: 'availability',
+      })
+      availability: string;
+    
+      @Column('varchar', {
+        name: 'specialization',
+        nullable: true,
+        comment: 'teacher specialization',
+      })
+      specialization: string; 
+    
+      @Column('text', {
+        name: 'biography',
+        nullable: true,
+        comment: 'teacher biography',
+      })
+      biography: string; 
+    
+    
+    }
+    

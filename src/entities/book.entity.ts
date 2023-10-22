@@ -1,8 +1,9 @@
 import { CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn, Column } from "typeorm";
-import { CategoryEntity } from "./category.entity";
-@Entity('products', { schema: 'ventas' })
+import { AuthorsEntity } from "./author.entity";
 
-export class ProductEntity {
+@Entity('books', { schema: 'book' })
+
+export class BooksEntity {
 
     @PrimaryGeneratedColumn('uuid')
         id: string;
@@ -28,8 +29,8 @@ export class ProductEntity {
     })
     deleteAt:Date;
     
-    @ManyToOne(()=> CategoryEntity, category => category.products)
-    category:CategoryEntity;
+    @ManyToOne(()=> AuthorsEntity, authors => authors.books)
+    authors:AuthorsEntity;
 
     @Column('varchar', {
         name:'title',

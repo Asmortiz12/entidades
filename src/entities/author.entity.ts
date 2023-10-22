@@ -1,8 +1,9 @@
-import { CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn, Column } from "typeorm";
-import { CategoryEntity } from "./category.entity";
-@Entity('products', { schema: 'ventas' })
+import { CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn, Column, OneToMany } from "typeorm";
+import { BooksEntity } from "./book.entity";
 
-export class ProductEntity {
+@Entity('authors', { schema: 'write' })
+
+export class AuthorsEntity {
 
     @PrimaryGeneratedColumn('uuid')
         id: string;
@@ -28,42 +29,35 @@ export class ProductEntity {
     })
     deleteAt:Date;
     
-    @ManyToOne(()=> CategoryEntity, category => category.products)
-    category:CategoryEntity;
+    @OneToMany(()=> BooksEntity, book => book.authors)
+    books:BooksEntity;
 
     @Column('varchar', {
         name:'title',
         nullable:false,
-        comment: 'product name',
+        comment: 'author name',
         })
         titleAt: string;
         
         @Column('integer', {
             name:'price',
             nullable:false,
-            comment: 'product price',
+            comment: 'witten books',
         })
         priceAt:number;
         
         @Column('varchar', {
             name:'description',
             nullable:true,
-            comment: 'product description',
+            comment: 'author biography',
         })
         descriptionAt:string;
         
         @Column('varchar',{
             name:'images',
             nullable:true,
-            comment: 'product images',
+            comment: 'author images',
         })
         imageAt:string;
-
-        @Column('varchar', {
-            name:'category',
-            nullable:false,
-            comment:'product category'
-        })
-        categoryAt:string;
 
     }
